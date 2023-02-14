@@ -1,0 +1,28 @@
+{
+  "name": "upp-projekt",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HanaZadravec/UPP-projekt.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HanaZadravec/UPP-projekt/issues"
+  },
+  "homepage": "https://github.com/HanaZadravec/UPP-projekt#readme",
+  "dependencies": {
+    "camunda-external-task-client-js": "^3.0.0-alpha1"
+  },
+ 
+  "devDependencies": {
+    "open": "^8.4.1"
+  },
+  "type": "module"
+}

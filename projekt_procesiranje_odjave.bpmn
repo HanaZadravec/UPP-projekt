@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_1ybpuyz" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.4.2" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.18.0">
+  <bpmn:process id="procesiranjeOdjave" name="procesiranjeOdjave" isExecutable="true">
+    <bpmn:endEvent id="Event_194f94n" name="Obavijest o uspješnoj odjavi">
+      <bpmn:incoming>Flow_0zsr7lx</bpmn:incoming>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_0c8e1xb" />
+    </bpmn:endEvent>
+    <bpmn:serviceTask id="Activity_1irj4be" name="Promjeni stanje sobe u slobodno" camunda:type="external" camunda:topic="stanjeSobe">
+      <bpmn:incoming>Flow_1pjigiu</bpmn:incoming>
+      <bpmn:outgoing>Flow_0zsr7lx</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_16wys3y">
+        <bpmn:targetRef>DataStoreReference_0f8vfvx</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:serviceTask>
+    <bpmn:dataStoreReference id="DataStoreReference_0f8vfvx" name="hotel DB" />
+    <bpmn:serviceTask id="Activity_1i6lai1" name="Pronađi rezervaciju gosta" camunda:type="external" camunda:topic="pronadi-rezervaciju">
+      <bpmn:incoming>Flow_09dwmlc</bpmn:incoming>
+      <bpmn:outgoing>Flow_1pjigiu</bpmn:outgoing>
+      <bpmn:property id="Property_0vung5m" name="__targetRef_placeholder" />
+      <bpmn:dataInputAssociation id="DataInputAssociation_14a79dc">
+        <bpmn:sourceRef>DataStoreReference_0f8vfvx</bpmn:sourceRef>
+        <bpmn:targetRef>Property_0vung5m</bpmn:targetRef>
+      </bpmn:dataInputAssociation>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_1ozpet9">
+        <bpmn:targetRef>DataStoreReference_0f8vfvx</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:serviceTask>
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>Flow_09dwmlc</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_0zsr7lx" sourceRef="Activity_1irj4be" targetRef="Event_194f94n" />
+    <bpmn:sequenceFlow id="Flow_1pjigiu" sourceRef="Activity_1i6lai1" targetRef="Activity_1irj4be" />
+    <bpmn:sequenceFlow id="Flow_09dwmlc" sourceRef="StartEvent_1" targetRef="Activity_1i6lai1" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="procesiranjeOdjave">
+      <bpmndi:BPMNShape id="BPMNShape_1y0gc3l" bpmnElement="Event_194f94n">
+        <dc:Bounds x="562" y="102" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="541" y="145" width="79" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_1d9v85f" bpmnElement="Activity_1irj4be">
+        <dc:Bounds x="400" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_1fzp9vz" bpmnElement="DataStoreReference_0f8vfvx">
+        <dc:Bounds x="265" y="205" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="269" y="262" width="43" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_1ow02wx" bpmnElement="Activity_1i6lai1">
+        <dc:Bounds x="240" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_0udw0yq" bpmnElement="StartEvent_1">
+        <dc:Bounds x="152" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_10gssiz" bpmnElement="DataOutputAssociation_16wys3y">
+        <di:waypoint x="402" y="156" />
+        <di:waypoint x="315" y="220" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_09euve2" bpmnElement="DataInputAssociation_14a79dc">
+        <di:waypoint x="300" y="205" />
+        <di:waypoint x="300" y="160" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_0c11yzn" bpmnElement="DataOutputAssociation_1ozpet9">
+        <di:waypoint x="285" y="160" />
+        <di:waypoint x="285" y="205" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_1voqw8o" bpmnElement="Flow_0zsr7lx">
+        <di:waypoint x="500" y="120" />
+        <di:waypoint x="562" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_1ahn1a0" bpmnElement="Flow_1pjigiu">
+        <di:waypoint x="340" y="120" />
+        <di:waypoint x="400" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_1qs2m23" bpmnElement="Flow_09dwmlc">
+        <di:waypoint x="188" y="120" />
+        <di:waypoint x="240" y="120" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

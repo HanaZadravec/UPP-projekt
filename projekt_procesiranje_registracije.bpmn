@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_10r9y9u" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.4.2" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.18.0">
+  <bpmn:process id="procesiranje_registracije" name="procesiranje_registracije" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>Flow_0qsqcn1</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:dataStoreReference id="DataStoreReference_0ayjk1d" name="hotel DB" />
+    <bpmn:serviceTask id="Activity_1qzzde4" name="Pronađi spremljenu registraciju" camunda:type="external" camunda:topic="registracija">
+      <bpmn:incoming>Flow_0qsqcn1</bpmn:incoming>
+      <bpmn:outgoing>Flow_1rnpuch</bpmn:outgoing>
+      <bpmn:property id="Property_1rb7te3" name="__targetRef_placeholder" />
+      <bpmn:dataInputAssociation id="DataInputAssociation_1liiu2w">
+        <bpmn:sourceRef>DataStoreReference_0ayjk1d</bpmn:sourceRef>
+        <bpmn:targetRef>Property_1rb7te3</bpmn:targetRef>
+      </bpmn:dataInputAssociation>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_1j3z01g">
+        <bpmn:targetRef>DataStoreReference_0ayjk1d</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:serviceTask>
+    <bpmn:endEvent id="Event_0h3gs63" name="Obavijest o spremljenoj registraciji">
+      <bpmn:incoming>Flow_1rnpuch</bpmn:incoming>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_0z0ie4a" />
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0qsqcn1" sourceRef="StartEvent_1" targetRef="Activity_1qzzde4" />
+    <bpmn:sequenceFlow id="Flow_1rnpuch" sourceRef="Activity_1qzzde4" targetRef="Event_0h3gs63" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="procesiranje_registracije">
+      <bpmndi:BPMNShape id="BPMNShape_18n2meu" bpmnElement="StartEvent_1">
+        <dc:Bounds x="152" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_0ifswij" bpmnElement="DataStoreReference_0ayjk1d">
+        <dc:Bounds x="325" y="235" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="329" y="292" width="43" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_03auhdn" bpmnElement="Activity_1qzzde4">
+        <dc:Bounds x="300" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_1mli3np" bpmnElement="Event_0h3gs63">
+        <dc:Bounds x="512" y="102" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="502" y="145" width="57" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_0b791wf" bpmnElement="DataInputAssociation_1liiu2w">
+        <di:waypoint x="340" y="235" />
+        <di:waypoint x="340" y="160" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_1byhzoh" bpmnElement="DataOutputAssociation_1j3z01g">
+        <di:waypoint x="355" y="160" />
+        <di:waypoint x="355" y="235" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_14m4uf4" bpmnElement="Flow_0qsqcn1">
+        <di:waypoint x="188" y="120" />
+        <di:waypoint x="300" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_0f8mydr" bpmnElement="Flow_1rnpuch">
+        <di:waypoint x="400" y="120" />
+        <di:waypoint x="512" y="120" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
